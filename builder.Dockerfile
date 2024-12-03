@@ -1,4 +1,4 @@
-FROM maven:3.8.8-openjdk-11 AS builder
+FROM maven:3.8.8-eclipse-temurin-11 AS builder
 
 # Set the working directory inside the container
 WORKDIR /build
