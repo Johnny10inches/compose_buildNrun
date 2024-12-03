@@ -1,0 +1,3 @@
+[submodule "java-tomcat-maven-example"]
+	path = java-tomcat-maven-example
+	url = https://github.com/mithunnit/java-tomcat-maven-example
