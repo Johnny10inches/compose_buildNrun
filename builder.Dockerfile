@@ -1,5 +1,4 @@
-# Use the official Maven image with the latest version
-FROM maven:latest
+FROM maven:3.8.8-openjdk-11 AS builder
 
 # Set the working directory inside the container
 WORKDIR /build
@@ -16,5 +15,5 @@ COPY java-tomcat-maven-example/src ./src
 # Build the project and generate the WAR file
 RUN mvn clean package
 
-# Copy the generated WAR file to a shared volume or directory
+# Copy the built WAR file to a volume
 CMD cp target/*.war /build/target/

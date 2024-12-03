@@ -1,31 +1,18 @@
+version: '3.8'
+
 services:
-  # Service responsible for building the WAR file
   builder:
     build:
       context: .          # Specifies the build context (current directory)
       dockerfile: builder.Dockerfile  # Dockerfile used to build this service
     container_name: app_builder  # Custom name for the container
-    working_dir: /build   # Working directory inside the container
-    volumes:
-      - app_volume:/build/target  # Mounts a volume to share the generated WAR file
 
-  # Service responsible for running the Tomcat server
   tomcat:
-    image: tomcat:9.0  # Uses the official Tomcat 9.0 image
-    container_name: app_tomcat  # Custom name for the container
+    build:
+      context: .          # Specifies the build context (current directory)
+      dockerfile: tomcat.Dockerfile # Dockerfile used to build this service
+    container_name: app_tomcat
     depends_on:
       - builder  # Ensures that the builder service runs before Tomcat
     ports:
       - "8081:8080"  # Maps port 8081 on the host to port 8080 in the container
-    volumes:
-      - app_volume:/usr/local/tomcat/webapps  # Shares the volume with the builder service
-    entrypoint: >  # Custom entrypoint script
-      sh -c "while [ ! -f /usr/local/tomcat/webapps/java-tomcat-maven-example.war ]; do
-               echo 'Waiting for WAR file...';  # Prints a message while waiting
-               sleep 2;  # Pauses for 2 seconds before checking again
-             done;
-             catalina.sh run"  # Starts the Tomcat server after the WAR file is present
-
-# Volume used to share files between builder and Tomcat services
-volumes:
-  app_volume:
