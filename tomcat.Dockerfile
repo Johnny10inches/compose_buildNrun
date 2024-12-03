@@ -10,7 +10,7 @@ WORKDIR /usr/local
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
 RUN tar -xzvf apache-tomcat-9.0.97.tar.gz
 RUN mv apache-tomcat-9.0.97.tar.gz tomcat
-RUN rm apache-tomcat-9.0.97.tar.gz
+RUN rm -rf apache-tomcat-9.0.97.tar.gz
 
 # Clean unnecessary webapps
 RUN rm -rf tomcat/webapps/examples tomcat/webapps/docs
