@@ -7,7 +7,7 @@ RUN apk add --no-cache openjdk11-jre wget tar
 WORKDIR /usr/local
 
 # Download and extract Tomcat
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz && \
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97-deployer.tar.gz && \
     tar -xzvf apache-tomcat-9.0.73.tar.gz && \
     mv apache-tomcat-9.0.73 tomcat && \
     rm apache-tomcat-9.0.73.tar.gz
