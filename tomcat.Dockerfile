@@ -16,7 +16,7 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.
 RUN rm -rf tomcat/webapps/examples tomcat/webapps/docs
 
 # Copy WAR file from shared volume
-COPY --from=builder /build/target/*.war /usr/local/tomcat/webapps/
+COPY --from=compose_buildnrun-builder /build/target/*.war /usr/local/tomcat/webapps/
 
 # Expose default Tomcat port
 EXPOSE 8080
