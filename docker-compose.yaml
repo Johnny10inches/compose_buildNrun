@@ -1,0 +1,28 @@
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: builder.Dockerfile
+    container_name: app_builder
+    working_dir: /build
+    volumes:
+      - app_volume:/build/target
+
+  tomcat:
+    image: tomcat:9.0
+    container_name: app_tomcat
+    depends_on:
+      - builder
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_volume:/usr/local/tomcat/webapps
+    entrypoint: >
+      sh -c "while [ ! -f /usr/local/tomcat/webapps/java-tomcat-maven-example.war ]; do
+               echo 'Waiting for WAR file...';
+               sleep 2;
+             done;
+             catalina.sh run"
+
+volumes:
+  app_volume:
