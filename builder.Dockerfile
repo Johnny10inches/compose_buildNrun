@@ -1,4 +1,4 @@
-FROM maven:3.8.8-openjdk-11
+FROM maven:latest
 
 WORKDIR /build
 
