@@ -5,7 +5,7 @@ services:
       dockerfile: builder.Dockerfile  # Dockerfile used to build this service
     container_name: app_builder  # Custom name for the container
     volumes:
-      - app_volume:/war  # Mount the ./war folder from the host to the container
+      - app_volume:/war1  # Mount the ./war folder from the host to the container
 
 
   tomcat:
