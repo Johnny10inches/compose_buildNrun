@@ -7,7 +7,7 @@ services:
       dockerfile: builder.Dockerfile  # Dockerfile used to build this service
     container_name: app_builder  # Custom name for the container
     volumes:
-      - ./war:/war
+      - app_volume:/war  # Mount the ./war folder from the host to the container
 
 
   tomcat:
@@ -20,12 +20,12 @@ services:
     ports:
       - "8081:8080"  # Maps port 8081 on the host to port 8080 in the container
     volumes:
-      - ./war:/war
+      - app_volume:/usr/local/tomcat/webapps/  # Mount the volume with WAR file into Tomcat's webapps directory
     entrypoint: >
       sh -c "while [ ! -f /usr/local/tomcat/webapps/java-tomcat-maven-example.war ]; do
                echo 'Waiting for WAR file...';
                sleep 2;
              done;
              catalina.sh run"
-
-
+volumes:
+  app_volume:  # Declare the shared volume
