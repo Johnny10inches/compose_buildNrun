@@ -24,6 +24,6 @@ services:
                echo 'Waiting for WAR file...';
                sleep 2;
              done;
-             catalina.sh run"
+             /usr/local/apache-tomcat-9.0.97/bin/catalina.sh run"
 volumes:
   app_volume:  # Declare the shared volume
