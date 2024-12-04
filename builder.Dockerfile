@@ -12,9 +12,8 @@ RUN mvn dependency:resolve
 # Copy the source code of the Java project into the container
 COPY java-tomcat-maven-example/src ./src
 
-# Build the project and generate the WAR file
-RUN mvn clean package
-
-# Copy the built WAR file to a volume
+# Copy the built WAR1 file to a volume
 RUN mkdir -p /war1
-CMD cp target/java-tomcat-maven-example.war /war1/
+
+# Build the project and cp to war1
+CMD mvn clean package && cp target/java-tomcat-maven-example.war /war1/
