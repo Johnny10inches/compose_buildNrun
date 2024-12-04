@@ -16,4 +16,4 @@ COPY java-tomcat-maven-example/src ./src
 RUN mkdir -p /war1
 
 # Build the project and cp to war1
-CMD mvn clean package && cp target/java-tomcat-maven-example.war /war1/
+CMD mvn clean package && cp target/*.war /war1/

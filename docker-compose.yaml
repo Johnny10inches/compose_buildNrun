@@ -1,16 +1,16 @@
 services:
   builder:
     build:
-      context: .          # Specifies the build context (current directory)
+      context: .                      # Specifies the build context (current directory)
       dockerfile: builder.Dockerfile  # Dockerfile used to build this service
-    container_name: app_builder  # Custom name for the container
+    container_name: app_builder       # Custom name for the container
     volumes:
-      - app_volume:/war1  # Mount the ./war folder from the host to the container
+      - app_volume:/war1              # Mount the ./war folder from the host to the container
 
 
   tomcat:
     build:
-      context: .          # Specifies the build context (current directory)
+      context: .                    # Specifies the build context (current directory)
       dockerfile: tomcat.Dockerfile # Dockerfile used to build this service
     container_name: app_tomcat
     depends_on:
@@ -19,6 +19,10 @@ services:
       - "8081:8080"  # Maps port 8081 on the host to port 8080 in the container
     volumes:
       - app_volume:/usr/local/apache-tomcat-9.0.97/webapps  # Mount the volume with WAR file into Tomcat's webapps directory
+
+    # The entrypoint waits for the WAR file to be available in the Tomcat webapps directory
+    # before starting Tomcat. It checks every 2 seconds to see if the WAR file exists.
+    # Once the WAR file is detected, it starts Tomcat by running the catalina.sh script.
     entrypoint: >
       sh -c "while [ ! -f /usr/local/apache-tomcat-9.0.97/webapps/java-tomcat-maven-example.war ]; do
                echo 'Waiting for WAR file...';
