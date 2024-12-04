@@ -18,4 +18,4 @@ RUN mkdir -p /usr/local/apache-tomcat-9.0.97/webapps
 EXPOSE 8080
 
 # Start Tomcat
-CMD ["/apache-tomcat-9.0.97/bin/catalina.sh", "run"]
+CMD ["/usr/local/apache-tomcat-9.0.97/bin/catalina.sh", "run"]
