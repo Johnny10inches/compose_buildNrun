@@ -1,4 +1,4 @@
-FROM maven:3.8.8-eclipse-temurin-11 AS builder
+FROM maven:3.8.8-eclipse-temurin-11
 
 # Set the working directory inside the container
 WORKDIR /build
@@ -16,4 +16,4 @@ COPY java-tomcat-maven-example/src ./src
 RUN mvn clean package
 
 # Copy the built WAR file to a volume
-CMD cp target/*.war /build/target/
+RUN cp target/*.war /war

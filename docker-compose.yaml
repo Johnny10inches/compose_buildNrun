@@ -6,6 +6,9 @@ services:
       context: .          # Specifies the build context (current directory)
       dockerfile: builder.Dockerfile  # Dockerfile used to build this service
     container_name: app_builder  # Custom name for the container
+    volumes:
+      - app_volume:/war
+
 
   tomcat:
     build:
@@ -16,3 +19,14 @@ services:
       - builder  # Ensures that the builder service runs before Tomcat
     ports:
       - "8081:8080"  # Maps port 8081 on the host to port 8080 in the container
+    volumes:
+      - app_volume:/war
+    entrypoint: >
+      sh -c "while [ ! -f /usr/local/tomcat/webapps/java-tomcat-maven-example.war ]; do
+               echo 'Waiting for WAR file...';
+               sleep 2;
+             done;
+             catalina.sh run"
+
+volumes:
+  app_volume:
